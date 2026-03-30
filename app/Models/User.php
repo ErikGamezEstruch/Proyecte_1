@@ -18,9 +18,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
+        'role',
+        'tarifa_hora',
+        'client_id',
     ];
 
     /**
@@ -45,4 +49,33 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function projectes_gestor()
+    {
+        return $this->belongsTo(Projectes::class);
+    }
+
+    public function projectes(){
+        return $this->belongsToMany(Projectes::class, 'projectes_users', 'user_id', 'projecte_id');
+    }
+
+    public function hasRole($roles)
+    {
+        return in_array($this->rol, (array) $roles);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'creador_id');
+    }
+
+    public function comentaris(){
+        return $this->hasMany(Comentari::class, 'creador_id');
+    }
+
+    public function registresTemps()
+    {
+        return $this->hasMany(RegistreTemps::class);
+    }
+
 }

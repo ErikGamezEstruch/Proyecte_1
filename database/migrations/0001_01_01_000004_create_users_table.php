@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('rol', ['GESTOR', 'DESENVOLUPADOR', 'CLIENT', 'ADMIN']);
+            $table->decimal('tarifa_hora', 8, 2)->nullable();
+            $table->foreignId('client_id')->nullable()->constrained()->nullOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

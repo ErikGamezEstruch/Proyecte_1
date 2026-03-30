@@ -8,6 +8,9 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * eliminar migracion y volver a hacerla
+     * php artisan migrate:fresh --seed
      */
     public function up(): void
     {
